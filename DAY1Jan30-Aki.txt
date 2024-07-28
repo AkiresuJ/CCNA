@@ -30,7 +30,7 @@ config t
 	 ip add 10.22.100.2 255.255.255.0
 	 description VOICEVLAN
 
-!@@@LeafSwitchONLY
+!@@@LeafSwitchONLY - CoreBaba
 config t
    hostname COREbaba22
    enable secret pass
@@ -67,7 +67,7 @@ config t
 	 description VOICEVLAN
 	 
 !DHCP: DYNAMIC HOST CONFIGURATION PROTOCOL
-!@@@LEAF SWITCH
+!@@@LEAF SWITCH Corebaba
 config t
 ip dhcp Excluded-add 10.22.1.1 10.22.1.100
 ip dhcp Excluded-add 10.22.10.1 10.22.10.100
@@ -96,7 +96,7 @@ ip dhcp pool VOICEVLAN
    option 150 ip 10.22.100.8   
    END
 
-!!CREATING AND PLACING PORTS INSIDEAVLAN:
+!!CREATING AND PLACING PORTS INSIDEAVLAN: corebaba
 config t
 vlan 10
    name WIFIVLAN
@@ -150,7 +150,7 @@ ip dhcp pool CAMERA8
 host 10.22.50.8 255.255.255.0
 client-identifier 001a.0709.c238
 
-!!cisco unified call manager Express command
+!!cisco unified call manager Express command CUCM
 !@@@CUCM-M
 config t
    hostname CUCM-22
@@ -187,7 +187,7 @@ dial-peer voice 4 pots
    port 0/0/3
 end
 
-!!IP telephony
+!!IP telephony CUCM
 config t
 no telephony-service
 telephony-service
@@ -243,14 +243,14 @@ ephone 2
    call start slow
 end
 
-!!@@allow incoming calls
+!!@@allow incoming calls CUCM
 configure terminal
 voice service voip
 ip address trusted list
 ipv4 0.0.0.0 0.0.0.0
 exit
 
-!OUTGOING CALL FROM CUCM TO OTHER CUCM.
+!OUTGOING CALL FROM CUCM TO OTHER CUCM. CUCM
 configure terminal
  dial-peer voice 11 Voip
  destination-pattern 11..
@@ -317,7 +317,7 @@ dial-peer voice 82 Voip
  session target ipv4:10.82.100.8
  codec g711ULAW
 
-@@@@@@
+@@@@@@ Cisco 4321 - Edge
 !@@@EDGE ROUTE CONFIG
 config t
    hostname EDGE-22
@@ -346,7 +346,7 @@ config t
 	 ip add 22.0.0.1 255.255.255.255
  end
 
- !!!STATIC ROUTING FOR MININUM WAGERS: 575php/day
+ !!!STATIC ROUTING FOR MININUM WAGERS: 575php/day - Cisco 4321 - Edge
  !!! EDGE route NOT dikit to ClassMate:
  conf t
  ip routing 
@@ -388,7 +388,7 @@ end
 !How to Static Route windows Server:
 cmd
 route  add   10.0.0.0   mask   255.0.0.0    10.22.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10.2.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10.22.1.4
 
 ********************************************
 
