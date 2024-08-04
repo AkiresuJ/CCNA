@@ -1,3 +1,9 @@
+TROUBLESHOOTING AND DIAGNOSTIC FOR NETWORK ENGINEERS:
+EXPERIENCE >>> CERTIFIED, lethal = XP + Certified + Englishero = 
+ping test:
+ping 10.22.1.10 = own ping, cable unplugged, wrong IP, Duplicate
+ping 10.m.1.4 no Vlan, wrong Vlan, sw: sh vlan brief
+
 CONFIGURING OSPF AND EIGRP IN REAL WORLD DEVICES, NOT VIRTUAL
 
 task4: CONFIGURING eigrp FOR ALL switches,cms
