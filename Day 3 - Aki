@@ -1,0 +1,49 @@
+ex 1. 
+
+Design and configure sykes.com network
+using 10.0.0.0/8 with 2500 agents, Tls, Pms.
+
+32 - 12 /20
+3rd octet, 16i
+
+255.255.240.0
+Ip range for sykes.com 10.0.16.0/20
+network IP = 10.0.16.0 +1
+First = 10.0.16.1 
+Last = 10.0.31.254
+Not sykes.com = 10.0.32.0 -1
+
+2500
+
+
+ex.2. Design and configure Accenture.com
+using 10.0.0.0/8 with 1200 Agents, Tls, PMs
+
+burado lahat routing
+config t
+no ip routing
+ip routing
+do show ip route
+
+conf t
+router bgp 1
+bgp router-id 1.1.1.1
+bgp log-neighbor-changes
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 remote-as 3
+address-family ipv4
+neighbor 208.8.8.4 activate
+neighbor 207.7.7.2 activate
+neighbor 209.9.9.3 activate
+network 10.1.1.0 mask 255.255.255.0
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+end
+
+
+
+
+
+
