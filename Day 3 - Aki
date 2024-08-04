@@ -42,6 +42,30 @@ network 207.7.7.0 mask 255.255.255.0
 network 209.9.9.0 mask 255.255.255.0
 end
 
+@VPN JAPAN
+conf t
+no logging console
+no ip domain lookup
+ip route 0.0.0.0 0.0.0.0 200.0.0.20
+int gi 1
+ip add 200.0.0.10 255.255.255.0
+no shut
+int gi 3
+ip add 10.10.10.1 255.255.255.0
+no shut
+
+@VPN PH
+conf t
+no logging console
+no ip domain lookup
+ip route 0.0.0.0 0.0.0.0 200.0.0.10
+int gi 1
+ip add 200.0.0.20 255.255.255.0
+no shut
+int gi 3
+ip add 10.20.20.1 255.255.255.0
+no shut
+
 
 
 
