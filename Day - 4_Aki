@@ -1,0 +1,527 @@
+
+1. Recon
+
+nmap -sP 10.k.1.0 /24
+
+nmap -sP10.k.100.0/24
+
+nmap -sP10.k.50.0/24
+
+3. Recon: Info gathering
+
+nmap -v 10.m.1.10
+
+nmap -v 10.m.50.6
+
+
+nmap -v 10.m.100.8
+
+defense evasion
+
+task:
+Cyber Attack anatomy: 3 way handshake
+nmap -v www.admu.edu.ph
+Wireshark - check network traffic
+
+attacking
+
+port 139 open? 139/tcp open netbios-ssn
+
+net use \\10.v.1.10\ipc$
+
+445/tcp open microsoft-ds:
+
+z: \\10.v1.1.10\d$
+
+
+attack network:
+
+net use z: \\10.k1.1.10\d$
+
+protect network
+
+net use z: /delete
+
+
+
+victim:		hacker:
+backdoor
+SYN --------> ip:
+ip:PORT(2000UP)
+   <-------- ACK
+   <--------->
+    established
+
+How to if you are hacked:
+
+netstat -s -p tcp //type in cmd
+
+foreign ip in iplocation.io
+
+
+Network security firewalls:
+console cable in edge router##
+firewall protect layer1 to layer7
+
+ccna packet filter firewall: layer3/layer4 = pfsense
+
+1. PALO ALTO
+2. CHECKPOINT
+3. Cisco Firepower
+4. Fortinet
+5. sonicwall, sophos
+
+VMWARE VPNPH
+
+int gi 3
+ip add 192.168.102.8 255.255.255.0
+no shut
+
+then ping
+
+config t
+int gi 3
+ no ip add
+ ip add 192.168.102.8 255.255.255.0
+end
+
+Cisco packet filter firewall: block/allow layer3:IP, layer4:PortNumbers
+
+vmware
+Vmnet1
+NAT
+Vmnet2
+
+Login Cisco
+Configuration -> Threat Defense
+
+Task1 create a packet filter firewall ACl to block other table
+use standard ACL: 1-99
+@edge: secureCRT
+block other column, allow your own:
+
+config t
+no access-list 1
+access-list 1 deny 10.11.0.0 0.0.255.255 log (#splunk)
+access-list 1 deny 10.21.0.0 0.0.255.255 log (#splunk)
+access-list 1 deny 10.31.0.0 0.0.255.255 log (#splunk)
+access-list 1 deny 10.41.0.0 0.0.255.255 log (#splunk)
+access-list 1 Permit Any
+Interface Gi 0/0/1
+ ip access-group 1 in
+end
+
+
+USE NAME
+
+config t
+no IP access-list STANDARD BAWALSILA2
+IP access-list STANDARD BAWALSILA2
+ deny 10.11.0.0 0.0.255.255 log
+ deny 10.21.0.0 0.0.255.255 log
+ deny 10.31.0.0 0.0.255.255 log
+ deny 10.41.0.0 0.0.255.255 log
+ Permit Any
+Interface Gi 0/0/1
+ ip access-group BAWALSILA2 in
+end
+
+
+LAB2:
+
+
+USE NAME
+
+config t
+no IP access-list STANDARD BAWALSILA2
+IP access-list STANDARD BAWALSILA2
+ deny 10.11.0.0 0.0.255.255 log
+ deny 10.12.0.0 0.0.255.255 log
+ deny 10.21.0.0 0.0.255.255 log
+ Permit Any
+Interface Gi 0/0/1
+ ip access-group BAWALSILA2 in
+end
+
+LAB3: allow only rowmate
+
+#remove IP accesslist
+no IP access-list STANDARD BAWALSILA2
+
+no access-list 3
+access-list 1 Permit 10.21.0.0 0.0.255.255 log (#splunk)
+Interface Gi 0/0/1
+Interface Gi 0/0/1
+ ip access-group 3 in
+end
+
+config t
+no IP access-list STANDARD KAMILANG1
+IP access-list STANDARD KAMILANG1
+ Permit 10.21.0.0 0.0.255.255
+Interface Gi 0/0/1
+ ip access-group KAMILANG1 in
+end
+
+lab 4: allow 11
+
+config t
+no IP access-list STANDARD KAMILANG1
+IP access-list STANDARD KAMILANG1
+ Permit 10.11.0.0 0.0.255.255
+Interface Gi 0/0/1
+ ip access-group KAMILANG1 in
+end
+
+removing 
+
+
+
+give internet and dns resolution to edge
+
+config t
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip domain-lookup
+ip name-server 1.1.1.1 8.8.8.8
+end
+
+
+block pornsites
+
+config t
+no IP access-list STANDARD BAWALPORN
+IP access-list STANDARD BAWALPORN
+ deny 66.254.0.0 0.0.255.255
+ deny 104.21.0.0 0.0.255.255
+ deny 68.235.0.0 0.0.255.255
+ deny 88.208.29.0 0.0.255.255
+ Permit Any
+Interface Gi 0/0/1
+ ip access-group BAWALPORN in
+end
+
+
+ALLOW porn again
+config t
+interface Gi 0/0/1
+ No ip access-group BAWALPORN in
+end
+
+
+Task block schools
+
+config t
+no IP access-list STANDARD CUTTINGCLASS
+IP access-list STANDARD CUTTINGCLASS
+ deny 104.22.0.0 0.0.255.255
+ deny 184.168.0.0 0.0.255.255
+ deny 50.6.0.0 0.0.255.255
+ Permit Any
+Interface Gi 0/0/1
+ ip access-group CUTTINGCLASS in
+end
+
+
+preferred DNS Server: 208.67.222.123
+alternate DNS Server 208.67.220.123
+
+
+@CUCM - Secure CRT
+
+config t
+int fa0/0
+ no shut
+ ip add 10.22.100.9 255.255.255.0 Secondary
+service finger
+service tcp-small-servers
+service udp-small-servers
+ip dns server
+ip http server
+ip http secure-server
+!Make Ping EASY
+ip host pc 10.22.1.10
+ip host cm 10.22.100.8
+ip host cm2 10.22.100.9
+ip host p1 10.22.100.101
+ip host p2 10.22.100.102
+ip host c6 10.22.50.6
+ip host c8 10.22.50.8
+ip host sw 10.22.1.4
+ip host ed 10.22.12.1
+
+
+@@@@ 
+conf t
+dot11 ssid 22sipAchilles
+authentication open
+authentication key-management wpa
+wpa-psk ascii C1sc0123
+guest-mode
+int dot11Radio 0
+no shut
+encryption mode ciphers tkip
+ssid 22sipAchilles
+
+conf t
+ voice service voip
+  allow-connections h323 to sip
+  allow-connections sip to h323
+  allow-connections sip to sip
+  supplementary-service h450.12
+ sip
+   bind control source-interface _____0/0
+   bind media source-interface _____0/0
+   registrar server expires max 600 min 60
+!
+ voice register global
+  mode cme
+  source-address 192.168._.1 port 5060
+  max-dn 12
+  max-pool 12
+  authenticate register
+  create profile sync 09289651185
+ voice register dn 1
+   number ____
+   allow watch
+   name _______
+ voice register dn 2
+          
+   number ___
+   allow watch
+   name _______
+  voice register pool 1
+    id mac ____.____.____
+    number 1 dn 1
+    dtmf-relay sip-notify
+    username ____ password ____
+    codec g711ulaw
+!
+  voice register pool 1
+    id mac ____.____.____
+    number 1 dn 2
+    dtmf-relay sip-notify
+    username ____ password ____
+    codec g711ulaw
+!
+create profile sync
+*******call other countries!!!********
+config t
+!
+dial-peer voice _ voip
+destination-pattern k..
+session protocol sipv2
+          
+session target sip-server
+codec g711ulaw
+exit
+sip-ua
+sip-server ipv4:192.168.k.1
+
+-------------------------------------------------------------
+ cm is dns, http, https server
+cm2 is sccp, sip, secureSip server
+
+formula:       PROTOCOL    HACKER    VICTIM     PORT:
+(data=TCP, voip=UDP, ping=ICMP, lahat=IP)
+
+config t
+no ip access-list extended POLICY1
+ip access-list extended POLICY1
+Permit tcp any host cm eq 80 log
+Permit tcp any host cm eq 443 log
+Permit tcp any  host cm eq 53 log
+Permit tcp any  host cm2 eq 2000 log
+Permit tcp any  host cm2 eq 5060 log
+Permit tcp any  host cm2 eq 5061 log
+Interface fa 0/0
+ ip access-group POLICY1 in
+ do sh ip access-list POLICY1
+
+
+nmap -Pnv cm2 ---- #
+
+#removing policy
+config t
+Interface fa 0/0
+ NO ip access-group POLICY1 in
+ do sh ip access-list POLICY1
+
+
+config t
+no ip access-list extended POLICY2
+ip access-list extended POLICY2
+Permit tcp any host cm eq 22 log
+Permit tcp any host cm eq 23 log
+Permit tcp any  host cm eq 53 log
+Permit tcp any  host cm eq 2000 log
+Permit icmp any  host cm2 log
+Permit tcp any  host cm2 eq 53 log
+Permit tcp any  host cm2 eq 80 log
+Permit tcp any  host cm2 eq 443 log
+Interface fa 0/0
+ ip access-group POLICY2 in
+ do sh ip access-list POLICY2
+
+config t
+Interface fa 0/0
+ NO ip access-group POLICY2 in
+ do sh ip access-list POLICY2
+
+
+LAB 3
+
+config t
+no ip access-list extended POLICY3
+ip access-list extended POLICY3
+Permit icmp any  host cm log
+Permit tcp any host cm eq 22 log
+Permit tcp any  host cm eq 23 log
+Permit tcp any  host cm eq 80 log
+
+Permit tcp any  host cm2 eq 53 log
+Permit tcp any  host cm2 eq 80 log
+Permit tcp any  host cm2 eq 443 log
+Permit tcp any  host cm2 eq 2000 log
+Permit tcp any  host cm2 eq 5060 log
+Permit tcp any  host cm2 eq 5061 log
+Interface fa 0/0
+ ip access-group POLICY3 in
+ do sh ip access-list POLICY3
+
+nmap -Pnv cm
+
+
+config t
+Interface fa 0/0
+ NO ip access-group POLICY3 in
+ do sh ip access-list POLICY3
+
+LAB 4
+
+ dns, sccp, ssh
+ping, https
+
+config t
+no ip access-list extended POLICY4
+ip access-list extended POLICY4
+Permit tcp any host cm eq 53 log
+Permit tcp any  host cm eq 2000 log
+Permit tcp any  host cm eq 22 log
+Permit icmp any  host cm2 log
+Permit tcp any  host cm2 eq 443 log
+Interface fa 0/0
+ ip access-group POLICY4 in
+ do sh ip access-list POLICY4
+
+config t
+Interface fa 0/0
+ NO ip access-group POLICY4 in
+ do sh ip access-list POLICY4
+
+Create POLICY5 with conditions
+pc ping, ssh, telnet cm
+pc can ping, http cm2
+p1 can ping cm
+p2 can sccp cm
+c6 can ping cm
+c8 can http cm
+ed can http cm
+
+
+config t
+no ip access-list extended POLICY5
+ip access-list extended POLICY5
+Permit icmp host pc host c1
+Permit tcp host pc host cm eq 22
+Permit tcp host pc host cm eq 23
+Permit icmp host pc host cm2
+Permit tcp host pc host cm eq 80
+Permit icmp host p1 host cm
+Permit tcp host p2 host cm eq 2000
+Permit icmp host c6 host cm
+Permit tcp host c8 host cm eq 80
+Permit tcp host ed host cm eq 80
+Interface fa 0/0
+ ip access-group POLICY5 in
+ do sh ip access-list POLICY5
+
+config t
+Interface fa 0/0
+ NO ip access-group POLICY5 in
+ do sh ip access-list POLICY5
+
+
+conf t
+ip domain-name netsec22.com
+ip domain-lookup
+ip name-server 10.22.1.10
+end
+
+
+-----------------------------
+
+CISCO NETWORK SERVICES
+
+
+line vty 0 14
+exec-timeout 0 0
+do wr
+
+config t
+ip route 0.0.0.0 0.0.0.0 192.168.108.2
+int gi 2
+ ip add 192.168.108.8 255.255.255.0
+ no shut
+int gi 1
+ ip add 192.168.101.8 255.255.255.0
+no shut
+end
+sh ip int brief
+
+ping 8.8.8.8
+
+
+configure your VPNPH to use time.google.com servers in USA:
+config t
+ntp server 216.239.35.8
+end
+show ntp associations
+
+# PASTE IN VPN PH SECURE CRT ---
+
+config t
+int gi 1
+ip nat INSIDE
+int gi 2
+ip nat OUTSIDE
+int gi 3
+ip nat INSIDE
+no access-list 7
+access-list 7 permit 192.168.101.0 0.0.0.255
+access-list 7 permit 192.168.102.0 0.0.0.255
+ip nat inside source list 7 interface Gi 2 overload
+ip nat inside source static 192.168.102.69 192.168.108.69
+ip nat inside source static 192.168.101.88 192.168.108.88
+end
+
+
+configure linux buildings bldg102 & 101
+
+@bldg102:
+
+sudo su
+ifconfig 192.168.102.69 netmask 255.255.255.0 up
+route add default gw 192.168.102.8
+ping 8.8.8.8
+ping 1.1.1.1
+ping 4.2.2.2
+
+
+
+
+
+
+
+
+
+
