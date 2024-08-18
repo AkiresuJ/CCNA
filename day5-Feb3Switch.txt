@@ -188,11 +188,12 @@ indicator no.2: if you plug a device=30s
 indicator no.3: Kislap every 1/2 seconds
 
 TASK6: HOW TO GET FIRED IMMEDIATELY!
-@baba:
+@baba: @taas: then taas
 config t
 NO spanning-tree vlan 1-999
 end
-@taas:
+
+How to get hired:
 config t
 spanning-tree vlan 1-999
 end
@@ -210,7 +211,7 @@ SuperMan: 802.1s: MiSTP
 "Protect Many Switches at the same time!"
 
 TASK8: ACCESS PORTS VS TRUNK PORTS:
-Trunk Ports: switch to switch:
+Trunk Ports: switch to switch: 802.1Q 
 TAAS/BABA:
 config t
 Int Range fa0/10-12
@@ -218,6 +219,7 @@ Int Range fa0/10-12
  no shutdown
  switchport trunk Encap Dot1Q
  switchport mode trunk
+ switchport trunk allowed vlan 1-100
  do sh int trunk
 Dot1q = Qupid,mave switches love each other:
       IEEE standard where SW will from Layer 2 trunks
